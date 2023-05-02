@@ -1,0 +1,21 @@
+﻿@model Size
+
+<div class="form-container col-6 offset-3">
+    <form method="post" asp-action="Create">
+        <div class="form-group row">
+             <h2>Add size</h2>
+        </div>
+
+         <label asp-for="Name"></label>
+         <input asp-for="Name" />
+         <span asp-validation-for="Name" class="error-validation"></span>
+
+         <input type="submit" class="customed-button" value="Create"/>
+          <a asp-action="Index">Back</a>
+    </form>
+</div>
+
+@section Scripts {
+    @{ <partial name="_ValidationScriptsPartial" />}
+}
+

@@ -1,0 +1,119 @@
+﻿@model OnlineShop.ViewModels.ItemVM
+
+<div class="form-container col-8 offset-2">
+    <form id="create-form" method="post" asp-action="Create" enctype="multipart/form-data">
+        <div class="form-group row">
+             <h2>Add item</h2>
+        </div>
+
+         <img class="item-img-form" id="preview-image" src="~/assets/no-photos.png"/>
+         <label asp-for="Item.Image"></label>
+         <input id="upload-image" type="file" accept="image/*" name="files" multiple onchange="previewImage()"/>
+         <span class="error-validation" id="image-validation"></span>
+
+         <label asp-for="Item.Name"></label>
+         <input asp-for="Item.Name" />
+         <span asp-validation-for="Item.Name" class="error-validation"></span>
+
+         <label asp-for="Item.Description"></label>
+         <textarea asp-for="Item.Description"></textarea>
+         <span asp-validation-for="Item.Description" class="error-validation"></span>
+
+         <label asp-for="Item.Price"></label>
+         <input asp-for="Item.Price" type="number" value="0.00"/>
+         <span asp-validation-for="Item.Price" class="error-validation"></span>
+
+         <label asp-for="Item.CategoryId"></label>
+         <select asp-for="Item.CategoryId" asp-items="@Model.CategorySelectList">
+             <option disabled selected>-Select category-</option>
+         </select>
+          <span asp-validation-for="Item.CategoryId" class="error-validation"></span>
+
+          <label asp-for="Item.Sex"></label>
+         <select asp-for="Item.Sex" asp-items="@Model.SexSelectList">
+             <option disabled selected>-Select sex-</option>
+         </select>
+          <span asp-validation-for="Item.Sex" class="error-validation"></span>
+
+          <label asp-for="SizeVMList"></label>
+           <div class="frame">
+          @if (@Model.SizeVMList != null && @Model.SizeVMList.Count() > 0)
+            {
+                <table>
+                     <thead>
+                         <tr>
+                           <th>
+                          </th>
+                           <th>
+                             Size
+                          </th>
+                           <th>
+                             Amount
+                          </th>
+                         </tr>
+                     </thead>
+            <tbody>
+                @for(int i = 0; i < Model.SizeVMList.Count(); i++)
+                {
+                    <tr>
+                        <td width="5%">
+                            @Html.HiddenFor(m => @Model.SizeVMList[i].Size.Code)
+                            <input asp-for=@Model.SizeVMList[i].Checked id=@Model.SizeVMList[i].Size.Code onchange="initDisabledInputAmount(this.id)" type="checkbox"/>
+                        </td>
+                        <td width="10%">@Model.SizeVMList[i].Size.Name</td>
+                        @Html.HiddenFor(m => @Model.SizeVMList[i].Size.Name)
+                        <td width="20%">
+                            <input asp-for="@Model.SizeVMList[i].Amount" id="@Model.SizeVMList[i].Size.Code"/>
+                            <span asp-validation-for="@Model.SizeVMList[i].Amount" id="@Model.SizeVMList[i].Size.Code" class="error-validation"></span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+         </table>
+            }
+            else
+            {
+              <p >No sizes</p>
+            }
+            </div>
+            <span id="size-validation" asp-validation-for="@Model.SizeVMList" class="error-validation"></span>
+
+
+         <input id="submit-btn" type="submit" class="customed-button" value="Create"/>
+          <a asp-action="Index">Back</a>
+    </form>
+</div>
+@section Scripts {
+    @{ <partial name="_ValidationScriptsPartial" /> }
+    <script src="~/js/item/functions.js"></script>
+    <script>
+        initDisabledInputAmountAll();
+        initPostprocessingValidationSpans();
+        
+        document.getElementById("submit-btn").addEventListener('click', (event) => { 
+            if(!validateSizeChosen())// || !window.isImageValid)
+                event.preventDefault();
+        });
+       // document.getElementById("submit-btn").addEventListener('click', (event) => validateImage(event));
+       /* document.getElementById("submit-btn").addEventListener('click',async (event) => {
+            if (!await validateImage(event))
+            {
+                console.log(false);
+                event.preventDefault();
+            };
+        }, false);*/
+
+       /* document.getElementById("submit-btn").addEventListener('click', (event) => {
+            if (jQuery) {  
+                console.log(jQuery)
+                }
+                
+                else
+                {
+                    console.log(jQuery)
+                }
+        });*/
+
+    </script>
+}
+

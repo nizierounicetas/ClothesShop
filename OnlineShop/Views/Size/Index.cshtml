@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Size>
+
+<div class="container pt-5">
+    <div class="row p-3">
+        <div class="col-6">
+            <h2>Size List</h2>
+        </div>
+
+        <div class="col-4">
+            <a asp-controller="Size" asp-action="Create" class="customed-button"><img src="~/assets/plus.png" class="small-icon inverted">Add new size</a>
+        </div>
+    </div>
+
+    <br /><br />
+
+    <div class="frame">
+          @if (Model.Count() > 0)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var size in Model)
+                {
+                    <tr>
+                        <td width="50%">@size.Name</td>
+                         <td>
+                              <a asp-controller="Size" asp-route-Id="@size.Code" asp-action="Edit"><img src="~/assets/edit.png" class="small-icon"></a>
+                              <a asp-controller="Size" asp-route-Id="@size.Code" asp-action="Delete"><img src="~/assets/delete.png" class="small-icon"></a>
+                         </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p >No sizes</p>
+    }
+    </div>
+</div>

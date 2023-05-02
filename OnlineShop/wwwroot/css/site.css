@@ -1,0 +1,189 @@
+﻿html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.my-navbar a {
+    color: palegreen;
+}
+
+table {
+    width: 100%;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+    border-collapse: collapse;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+
+th {
+    background-color: lightgrey;
+}
+
+td {
+    border-top: 3px solid black;
+    padding: 10px;
+}
+
+.customed-button {
+    text-decoration: none;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+    border: 3px solid black;
+    border-radius: 20px;
+    padding: 10px 10px 10px 10px;
+    margin: 10px;
+    color: white;
+    background-color: black;
+    transition: all 150ms ease-in-out;
+}
+
+.customed-button:hover {
+    color: black;
+    background-color: white;
+}
+
+.customed-button:hover img {
+    filter: invert(0%);
+ }
+
+.customed-button-light {
+    text-decoration: none;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+    border: 3px solid black;
+    border-radius: 20px;
+    padding: 10px 10px 10px 10px;
+    margin: 10px;
+    color: black;
+    background-color: white;
+    transition: all 150ms ease-in-out;
+}
+
+    .customed-button-light:hover {
+        color: white;
+        background-color: black;
+    }
+
+
+h2 {
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.frame, .form-container {
+    border: 3px solid black;
+    border-radius: 20px;
+}
+
+.form-container {
+    padding: 10px;
+}
+
+
+a {
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+    white-space: nowrap;
+}
+
+    a:hover {
+        color: black;
+        font-weight: bold;
+    }
+
+form label {
+    margin-top: 20px;
+    margin-left: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type = "date"],
+input[type="file"],
+textarea,
+select {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    border: 3px solid black;
+    border-radius: 20px;
+}
+
+input:disabled, textarea:disabled {
+    background-color: lightgrey;
+}
+
+.error-validation {
+    color: red;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+    display: block;
+    width: 100%;
+}
+
+.small-icon {
+    width: 24px;
+    margin: 4px;
+    transition: transform 0.5s ease;
+}
+
+    .small-icon:hover {
+        transform: rotate(45deg);
+    }
+
+
+.frame p {
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+    text-align: center;
+}
+
+.inverted {
+    filter: invert(100%);
+}
+
+    .inverted:hover {
+        filter: invert(0%);
+    }
+
+.item-img-form {
+    border: 3px solid black;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 20px;
+    display: block;
+    padding: 5px;
+    width: 30%;
+    aspect-ratio: 1;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+}
+

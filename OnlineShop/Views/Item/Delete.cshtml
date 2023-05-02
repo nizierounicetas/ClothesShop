@@ -1,0 +1,75 @@
+﻿@model Item
+<div class="form-container col-8 offset-2">
+    <form method="post" asp-action="DeletePost">
+        <div class="form-group row">
+             <h2>Delete item</h2>
+        </div>
+
+        @{
+            if (Model.Image != null)
+            {
+                  <img class="item-img-form" id="preview-image" src="@WC.ImagePath@Model.Image"/>      
+            }
+            else
+            {
+                  <img class="item-img-form" id="preview-image" src="~/assets/no-photos.png"/>
+            }
+        }
+
+         <input asp-for="Id" hidden/>
+         <label asp-for="Name"></label>
+         <input asp-for="Name" disabled/>
+
+         @if (Model.Description != null)
+        {
+             <label asp-for="Description"></label>
+             <textarea asp-for="Description" disabled></textarea>
+        }
+
+         <label asp-for="Price"></label>
+         <input asp-for="Price" type="number" disabled/>
+
+         <label asp-for="CategoryId"></label>
+         <input asp-for="Category.Name" disabled/>
+
+          <label asp-for="Sex"></label>
+         <input asp-for="Sex" disabled />
+
+          <label asp-for="SizedItems"></label>
+           <div class="frame">
+          @if (@Model.SizedItems != null && Model.SizedItems.Count() > 0)
+            {
+                <table>
+                     <thead>
+                         <tr>
+                           <th>
+                             Size
+                          </th>
+                           <th>
+                             Amount
+                          </th>
+                         </tr>
+                     </thead>
+            <tbody>
+                @foreach(var sizedItem in Model.SizedItems)
+                {
+                    <tr>
+                        <td width="10%">@sizedItem.Size!.Name</td>
+                        <td width="20%">
+                            <input asp-for="@sizedItem.Amount" disabled/>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+         </table>
+            }
+            else
+            {
+              <p >No sizes</p>
+            }
+            </div>
+
+         <input id="submit-btn" type="submit" class="customed-button" value="Delete"/>
+          <a asp-action="Index">Back</a>
+    </form>
+</div>
