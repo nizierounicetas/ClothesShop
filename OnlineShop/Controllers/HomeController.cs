@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using OnlineShop.Models;
-using OnlineShop.Data;
-using OnlineShop.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using OnlineShop.Data;
+using OnlineShop.Models;
+using OnlineShop.ViewModels;
+using System.Diagnostics;
 
 namespace OnlineShop.Controllers
 {
@@ -22,7 +23,7 @@ namespace OnlineShop.Controllers
         {
             HomeItemVM homeItemVM = new HomeItemVM()
             {
-                Items = _dbContext.Items.Include(i => i.Category).Include(i => i.SizedItems)!.ThenInclude(si => si.Size),
+                Items = _dbContext.Items.Include(i => i.Category).Include(i => i.SizedItems),
                 Categories = _dbContext.Categories,
                 Sizes = _dbContext.Sizes
             };
@@ -39,6 +40,39 @@ namespace OnlineShop.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            Item item = await _dbContext.Items.Include(i => i.Category).Include(i => i.SizedItems)
+                .ThenInclude(si => si.Size).Where(i => i.Id == id).FirstOrDefaultAsync();
+
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            return View(new DetailsVM() { 
+                Item = item,
+                ExistingSizesSelectList = this.ExtractExistingSizes(item)
+                });;
+        }
+
+        private IEnumerable<SelectListItem> ExtractExistingSizes(Item item)
+        {
+            if (item.SizedItems == null)
+                return null;
+
+            List<SelectListItem> sizes = new List<SelectListItem>();
+            foreach(var sizedItem in item.SizedItems)
+            {
+                if (sizedItem.Size != null && sizedItem.Amount > 0)
+                {
+                    sizes.Add(new SelectListItem() { Value = sizedItem.Id.ToString(), Text = sizedItem.Size.Name });
+                }
+            }
+
+            return sizes;
         }
     }
 }

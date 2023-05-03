@@ -7,6 +7,13 @@
         {
             <button class="customed-button-light filter-button" data-filter="@category.Code">@category.Name</button>
         }
+        <br/>
+        <div class="grid-wrapper">
+            @foreach(var item in Model.Items)
+            {
+                <partial name="_ItemCard" model="item" />       
+            }
+        </div>
 
     </div>
 </div>

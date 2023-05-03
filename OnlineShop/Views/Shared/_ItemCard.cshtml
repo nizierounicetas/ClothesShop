@@ -1,5 +1,16 @@
 ﻿@model Item
-
-<div class="card bg-white rounded shadow-sm">
-
+<div class="grid-item">
+    <div class="image-container">
+         @if (@Model.Image != null)
+    {
+        <img src="@WC.ImagePath@Model.Image" class="item-img" />
+    }
+    else
+    {
+        <img src="~/assets/no-photos.png" class="item-img" />
+    }
+    </div>
+    <span class="grid-item-text">@Model.Category.Name.ToUpper() @Model.Name</span>
+    <span class="grid-item-text">@Model.Price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) $</span>
+    <a asp-action="Details" asp-route-id="@Model.Id" class="customed-button more-button">More</a>
 </div>

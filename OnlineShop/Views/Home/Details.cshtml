@@ -1,0 +1,47 @@
+﻿@model OnlineShop.ViewModels.DetailsVM
+<main class="container-item">
+        <div class="left-column">
+        @if (@Model.Item.Image != null)
+        {
+            <img src="@WC.ImagePath@Model.Item.Image" class="item-img-main" />
+        }
+        else
+        {
+            <img src="~/assets/no-photos.png" class="item-img-main" />
+        }
+    </div>
+
+
+        <!-- Right Column -->
+        <div class="right-column">
+
+            <!-- Product Description -->
+            <div class="product-description">
+                <h1 class="item-title-text">@Model.Item!.Category.Name.ToUpper() @Model.Item.Name</h1>
+                <p class="item-sign-text">@Model.Item.Sex.ToString().ToUpper()</p>
+                @if (Model.Item.Description != null)
+            {
+                <label asp-for="@Model.Item.Description" class="item-sign-text"></label>
+                <p class="description">@Model.Item.Description</p>
+            }
+            <p class="item-sign-text">@Model.Item.Price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) $</p>
+                @if (@Model.IsInCart)
+                {
+                <p>Add Remove</p>
+                }
+                else if (@Model.ExistingSizesSelectList != null && @Model.Item.SizedItems.FirstOrDefault(si => si.Amount > 0) != null)
+                {
+                    <div class="size-block">
+                        <label asp-for="@Model.ExistingSizesSelectList" class="item-sign-text"></label>
+                        <select asp-for="@Model.ChosenSizedItemId" asp-items="@Model.ExistingSizesSelectList" class="sizes">
+                        </select>
+                    </div>
+                    <button name="itemId" asp-action="Cart" asp-route-id="4" class="customed-button">Add to cart</button>
+                }
+                else
+                {
+                    <p class="item-sign-text">Not available</p>
+                }
+                <a asp-action="Index">Back</a>
+            </div>
+    </main>

@@ -9,12 +9,103 @@
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
   margin-bottom: 60px;
+}
+
+footer {
+    background-color: black;
+    color: white;
+}
+.custom-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media (max-width: 525px) {
+    .custom-row {
+        flex-direction: column;
+        row-gap: 15px;
+    }
+
+    .frame {
+        overflow: scroll;
+    }
+
+}
+
+@media (max-width: 660px)
+{
+    .right-column {
+        width: 100%;
+        display: block;
+    }
+
+    .left-column {
+        display: block;
+        width: 100%;
+    }
+
+    .container-item {
+        display: block;
+        flex-direction: column;
+    }
+}
+
+.main-header {
+    width: 100%;
+    height: 10%;
+}
+
+.image-container {
+    display: flex;
+    width: 100%;
+}
+
+.grid-wrapper {
+    margin: 1em;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+    margin-top: 60px;
+    background-color: white;
+    text-align: center;
+}
+
+.grid-item {
+    width: 100%;
+    margin: 4px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 4px solid black;
+    border-radius: 20px;
+    padding: 10px;
+    line-height: 1;
+}
+
+.grid-item-text {
+    padding: 6px 1px 6px 1px;
+    font-weight: 800;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: black;
+}
+
+.item-img {
+    height: auto;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: contain;
+    mix-blend-mode: multiply;
 }
 
 .my-navbar a {
@@ -23,6 +114,8 @@ body {
 
 table {
     width: 100%;
+    font-size: 20px;
+    font-weight: 4s00;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     font-size: large;
@@ -34,6 +127,8 @@ table {
 
 th {
     background-color: lightgrey;
+    font-size: 20px;
+    font-weight: 800;
 }
 
 td {
@@ -41,11 +136,12 @@ td {
     padding: 10px;
 }
 
-.customed-button {
+.customed-button, .more-button {
     text-decoration: none;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: large;
+    font-size: 20px;
+    font-weight: 800;
     border: 3px solid black;
     border-radius: 20px;
     padding: 10px 10px 10px 10px;
@@ -55,20 +151,29 @@ td {
     transition: all 150ms ease-in-out;
 }
 
-.customed-button:hover {
-    color: black;
-    background-color: white;
-}
+    .customed-button:hover, .more-button:hover {
+        color: black;
+        background-color: white;
+        font-size: 20px;
+        font-weight: 800;
+    }
 
 .customed-button:hover img {
     filter: invert(0%);
  }
 
+.more-button {
+    margin-top: auto;
+    height: fit-content;
+    margin-bottom: 10px;
+}
+
 .customed-button-light {
     text-decoration: none;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: large;
+    font-size: 20px;
+    font-weight: 800;
     border: 3px solid black;
     border-radius: 20px;
     padding: 10px 10px 10px 10px;
@@ -81,12 +186,15 @@ td {
     .customed-button-light:hover {
         color: white;
         background-color: black;
+        font-size: 20px;
+        font-weight: 800;
     }
 
 
 h2 {
-    font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    font-weight: 800;
 }
 
 .frame, .form-container {
@@ -104,18 +212,18 @@ a {
     font-family: Arial, Helvetica, sans-serif;
     font-size: large;
     white-space: nowrap;
+    font-size: 20px;
+    font-weight: 800;
 }
 
-    a:hover {
-        color: black;
-        font-weight: bold;
-    }
 
 form label {
     margin-top: 20px;
     margin-left: 10px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: large;
+    font-size: 20px;
+    font-weight: 800;
 }
 
 input[type="text"],
@@ -127,7 +235,8 @@ textarea,
 select {
     font-family: Arial, Helvetica, sans-serif;
     font-size: large;
-
+    font-size: 20px;
+    font-weight: 400;
     padding: 10px;
     font-size: 16px;
     width: 100%;
@@ -140,6 +249,8 @@ input:disabled, textarea:disabled {
 }
 
 .error-validation {
+    font-size: 20px;
+    font-weight: 800;
     color: red;
     font-family: Arial, Helvetica, sans-serif;
     font-size: large;
@@ -185,5 +296,65 @@ input:disabled, textarea:disabled {
     aspect-ratio: 1;
     object-fit: contain;
     mix-blend-mode: multiply;
+}
+
+.container-item {
+    margin-top: 60px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.right-column {
+    width: 35%;
+}
+
+.left-column {
+    width: 65%;
+    position: relative;
+}
+
+.item-title-text {
+    padding: 6px 1px 6px 1px;
+    font-weight: 800;
+    font-size: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+}
+
+.item-sign-text {
+    margin-top: 10px;
+    padding: 6px 1px 1px 1px;
+    font-weight: 800;
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+}
+
+.description {
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    white-space: pre-line;
+    color: black;
+}
+
+.item-img-main {
+    text-align: right;
+    width: 90%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+}
+
+select,
+.sizes {
+    margin: 5px;
+    font-size: 20px;
+    font-weight: 400;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 20px;
+    background-color: lightgrey;
+    border-color: lightgrey;
+    padding: 8px;
+    height: fit-content;
 }
 
