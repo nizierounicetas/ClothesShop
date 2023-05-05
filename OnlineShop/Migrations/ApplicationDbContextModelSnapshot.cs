@@ -38,7 +38,7 @@ namespace OnlineShop.Migrations
 
                     b.HasKey("Code");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("OnlineShop.Models.Item", b =>
@@ -72,7 +72,7 @@ namespace OnlineShop.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Items");
+                    b.ToTable("Items", (string)null);
                 });
 
             modelBuilder.Entity("OnlineShop.Models.Size", b =>
@@ -90,7 +90,7 @@ namespace OnlineShop.Migrations
 
                     b.HasKey("Code");
 
-                    b.ToTable("Sizes");
+                    b.ToTable("Sizes", (string)null);
                 });
 
             modelBuilder.Entity("OnlineShop.Models.SizedItem", b =>
@@ -116,7 +116,7 @@ namespace OnlineShop.Migrations
 
                     b.HasIndex("SizeId");
 
-                    b.ToTable("SizedItems");
+                    b.ToTable("SizedItems", (string)null);
                 });
 
             modelBuilder.Entity("OnlineShop.Models.Item", b =>

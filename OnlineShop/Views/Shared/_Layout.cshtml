@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@using OnlineShop.Utility
+@inject IHttpContextAccessor httpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -29,6 +33,27 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Item" asp-action="Index">Item</a>
                         </li>
+                        <li class="nav-item right-column">
+                                @{
+                                    var cart = httpContextAccessor.HttpContext.Session.Get<List<ShoppingCartItem>>(WC.SessionCart);
+
+                                     @if (cart != null && cart.Count != 0)
+                                    {
+                                        int count = 0;
+                                        cart.ForEach(i => count += i.Amount);
+            
+                                        <a class="nav-link text-white" asp-controller="Cart" asp-action="Index">
+                                        <img src="~/assets/cart.png" class="navbar-icon"> (@count)
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a class="nav-link text-white" asp-controller="Cart" asp-action="Index">
+                                        <img src="~/assets/cart.png" class="navbar-icon"> (0)
+                                        </a>
+                                    }
+                                }
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -48,6 +73,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/sweetalert/sweetalert2.all.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

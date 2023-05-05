@@ -15,6 +15,16 @@ namespace OnlineShop.Controllers
 
         public IActionResult Index()
         {
+            if (TempData[WC.MessageAlertName] != null)
+            {
+                ViewData[WC.MessageAlertName] = TempData[WC.MessageAlertName];
+            }
+
+            if (TempData[WC.ErrorMessageAlertName] != null)
+            {
+                ViewData[WC.ErrorMessageAlertName] = TempData[WC.ErrorMessageAlertName];
+            }
+
             return View(_dbContext.Categories);
         }
 
@@ -36,7 +46,9 @@ namespace OnlineShop.Controllers
             await _dbContext.Categories.AddAsync(category);
             await _dbContext.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+            TempData[WC.MessageAlertName] = $"Category {category.Name} added successfully!";
+
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -48,6 +60,7 @@ namespace OnlineShop.Controllers
             }
 
             var category = await _dbContext.Categories.FindAsync(id);
+
             return View(category);
         }
 
@@ -63,7 +76,9 @@ namespace OnlineShop.Controllers
             _dbContext.Categories.Update(category);
             await _dbContext.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+            TempData[WC.MessageAlertName] = $"Category {category.Name} edited successfully!";
+
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -78,7 +93,7 @@ namespace OnlineShop.Controllers
             return View(category);
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeletePost(int? code)
         {
@@ -93,7 +108,9 @@ namespace OnlineShop.Controllers
             _dbContext.Categories.Remove(category);
             await _dbContext.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+            TempData[WC.MessageAlertName] = $"Category {category.Name} deleted successfully!";
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -7,7 +7,7 @@
         </div>
 
         <div>
-            <a asp-controller="Size" asp-action="Create" class="customed-button"><img src="~/assets/plus.png" class="small-icon inverted">Add new size</a>
+            <a asp-controller="Size" asp-action="Create" class="customed-button"><img src="~/assets/plus.png" class="edit-icon inverted">Add new size</a>
         </div>
     </div>
 
@@ -33,8 +33,8 @@
                     <tr>
                         <td width="50%">@size.Name</td>
                          <td>
-                              <a asp-controller="Size" asp-route-Id="@size.Code" asp-action="Edit"><img src="~/assets/edit.png" class="small-icon"></a>
-                              <a asp-controller="Size" asp-route-Id="@size.Code" asp-action="Delete"><img src="~/assets/delete.png" class="small-icon"></a>
+                              <a asp-controller="Size" asp-route-Id="@size.Code" asp-action="Edit"><img src="~/assets/edit.png" class="edit-icon"></a>
+                              <a asp-controller="Size" asp-route-Id="@size.Code" asp-action="Delete"><img src="~/assets/delete.png" class="edit-icon"></a>
                          </td>
                     </tr>
 
@@ -48,3 +48,6 @@
     }
     </div>
 </div>
+@section Scripts {
+    @{<partial name="_Alert"/>}
+}

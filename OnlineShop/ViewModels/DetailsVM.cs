@@ -8,6 +8,8 @@ namespace OnlineShop.ViewModels
     {
         public Item Item { get; set; } = new Item();
         public bool IsInCart { get; set; } = false;
+
+        [Required(ErrorMessage = "Size is not chosen")]
         public int ChosenSizedItemId { get; set; }
 
         [Display(Name="Size")]

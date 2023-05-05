@@ -7,7 +7,7 @@
         </div>
 
         <div>
-            <a asp-controller="Item" asp-action="Create" class="customed-button"><img src="~/assets/plus.png" class="small-icon inverted">Add new item</a>
+            <a asp-controller="Item" asp-action="Create" class="customed-button"><img src="~/assets/plus.png" class="edit-icon inverted">Add new item</a>
         </div>
     </div>
 
@@ -45,8 +45,8 @@
                         <td width="20%">@item.Sex.ToString()</td>
                         <td width="20%">@item.Price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) $</td>
                          <td>
-                              <a asp-controller="Item" asp-route-Id="@item.Id" asp-action="Edit"><img src="~/assets/edit.png" class="small-icon"></a>
-                              <a asp-controller="Item" asp-route-Id="@item.Id" asp-action="Delete"><img src="~/assets/delete.png" class="small-icon"></a>
+                              <a asp-controller="Item" asp-route-Id="@item.Id" asp-action="Edit"><img src="~/assets/edit.png" class="edit-icon"></a>
+                              <a asp-controller="Item" asp-route-Id="@item.Id" asp-action="Delete"><img src="~/assets/delete.png" class="edit-icon"></a>
                          </td>
                     </tr>
 
@@ -60,3 +60,6 @@
     }
     </div>
 </div>
+@section Scripts {
+    @{<partial name="_Alert"/>}
+}

@@ -16,6 +16,7 @@ namespace OnlineShop.Models
         [Required]
         public string Name { get; set; }
 
+        [MaxLength(300, ErrorMessage = "Max length is 300 symbols")]
         public string? Description { get; set; }
 
         public string? Image { get; set; }

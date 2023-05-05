@@ -15,6 +15,16 @@ namespace OnlineShop.Controllers
 
         public IActionResult Index()
         {
+            if (TempData[WC.MessageAlertName] != null)
+            {
+                ViewData[WC.MessageAlertName] = TempData[WC.MessageAlertName];
+            }
+
+            if (TempData[WC.ErrorMessageAlertName] != null)
+            {
+                ViewData[WC.ErrorMessageAlertName] = TempData[WC.ErrorMessageAlertName];
+            }
+
             return View(_dbContext.Sizes);
         }
 
@@ -36,7 +46,9 @@ namespace OnlineShop.Controllers
             await _dbContext.AddAsync(size);
             await _dbContext.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+            TempData[WC.MessageAlertName] = $"Size {size.Name} added succesfully!";
+
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -64,7 +76,9 @@ namespace OnlineShop.Controllers
             _dbContext.Sizes.Update(size);
             await _dbContext.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+            TempData[WC.MessageAlertName] = $"Size {size.Name} edited succesfully!";
+
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -80,7 +94,7 @@ namespace OnlineShop.Controllers
             return View(size);
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeletePost(int? code)
         {
@@ -94,7 +108,9 @@ namespace OnlineShop.Controllers
             _dbContext.Sizes.Remove(size);
             await _dbContext.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+            TempData[WC.MessageAlertName] = $"Size {size.Name} deleted succesfully!";
+
+            return RedirectToAction(nameof(Index));
         }
 
     }

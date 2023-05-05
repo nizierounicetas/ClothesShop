@@ -1,5 +1,20 @@
-﻿function uuidv4() {
-    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-    );
+﻿@if (ViewBag.Message != null) {
+    <script>Swal.fire({
+        title: '@ViewBag.Message',
+        timer: 1500,
+        showConfirmButton: false,
+        icon: 'success',
+        position: 'top-center'
+       });</script>
+}
+
+@if (ViewBag.ErrorMessage != null) {
+    <script>Swal.fire({
+        title: '@ViewBag.ErrorMessage',
+        timer: 1500,
+        showConfirmButton: false,
+        icon: 'warning',
+        color: '#000000',
+        position: 'top'
+       });</script>
 }

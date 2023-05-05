@@ -7,7 +7,7 @@
         </div>
 
         <div>
-            <a asp-controller="Category" asp-action="Create" class="customed-button"><img src="~/assets/plus.png" class="small-icon inverted">Add new category</a>
+            <a asp-controller="Category" asp-action="Create" class="customed-button"><img src="~/assets/plus.png" class="edit-icon inverted">Add new category</a>
         </div>
     </div>
 
@@ -37,8 +37,8 @@
                         <td width="50%">@category.Name</td>
                          <td width="20%">@category.DisplayOrder</td>
                          <td>
-                              <a asp-controller="Category" asp-route-Id="@category.Code" asp-action="Edit"><img src="~/assets/edit.png" class="small-icon"></a>
-                              <a asp-controller="Category" asp-route-Id="@category.Code" asp-action="Delete"><img src="~/assets/delete.png" class="small-icon"></a>
+                              <a asp-controller="Category" asp-route-Id="@category.Code" asp-action="Edit"><img src="~/assets/edit.png" class="edit-icon"></a>
+                              <a asp-controller="Category" asp-route-Id="@category.Code" asp-action="Delete"><img src="~/assets/delete.png" class="edit-icon"></a>
                          </td>
                     </tr>
 
@@ -52,3 +52,6 @@
     }
     </div>
 </div>
+@section Scripts {
+    @{ <partial name="_Alert" /> }
+}

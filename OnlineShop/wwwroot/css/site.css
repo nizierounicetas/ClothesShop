@@ -37,6 +37,15 @@ footer {
         overflow: scroll;
     }
 
+    .product-description {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+     .item-img-main {
+        width: 150%;
+    }
 }
 
 @media (max-width: 660px)
@@ -54,6 +63,9 @@ footer {
     .container-item {
         display: block;
         flex-direction: column;
+        text-align: center;
+        align-items: center;
+        align-content: center;
     }
 }
 
@@ -100,6 +112,10 @@ footer {
     color: black;
 }
 
+.price {
+    font-size: 18px;
+}
+
 .item-img {
     height: auto;
     width: 100%;
@@ -115,7 +131,7 @@ footer {
 table {
     width: 100%;
     font-size: 20px;
-    font-weight: 4s00;
+    font-weight: 400;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     font-size: large;
@@ -138,7 +154,6 @@ td {
 
 .customed-button, .more-button {
     text-decoration: none;
-    font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
     font-weight: 800;
@@ -258,16 +273,20 @@ input:disabled, textarea:disabled {
     width: 100%;
 }
 
-.small-icon {
+.edit-icon {
     width: 24px;
     margin: 4px;
     transition: transform 0.5s ease;
 }
 
-    .small-icon:hover {
+    .edit-icon:hover {
         transform: rotate(45deg);
     }
 
+.navbar-icon {
+    width: 32px;
+    filter: invert(100%);
+}
 
 .frame p {
     font-weight: bold;
@@ -324,7 +343,6 @@ input:disabled, textarea:disabled {
 
 .item-sign-text {
     margin-top: 10px;
-    padding: 6px 1px 1px 1px;
     font-weight: 800;
     font-size: 30px;
     font-family: Arial, Helvetica, sans-serif;
@@ -339,7 +357,6 @@ input:disabled, textarea:disabled {
 }
 
 .item-img-main {
-    text-align: right;
     width: 90%;
     object-fit: contain;
     mix-blend-mode: multiply;

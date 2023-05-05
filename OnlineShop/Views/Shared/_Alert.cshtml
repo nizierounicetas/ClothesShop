@@ -1,0 +1,23 @@
+﻿@if (ViewBag.Message != null)
+    {
+       <script>Swal.fire({
+           title: '@ViewData[WC.MessageAlertName]',
+           timer: 1200,
+           showConfirmButton: false,
+           icon: 'success',
+           position: 'top',
+            color: '#000000'
+       })</script>
+    }
+    
+@if (ViewBag.ErrorMessage != null)
+    {
+        <script>Swal.fire({
+           title: '@ViewData[WC.ErrorMessageAlertName]',
+           timer: 1200,
+           showConfirmButton: false,
+           icon: 'warning',
+           color: '#000000',
+           position: 'top'
+       })</script>
+    }
