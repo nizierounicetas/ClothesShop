@@ -17,9 +17,9 @@ function initDisabledInputAmount(id) {
     if (!checkbox.checked) {
         inputAmount.value = 0;
         spanValidation.textContent = '';
-
     }
-    else {
+    else
+    {
         document.getElementById("size-validation").innerText = '';
     }
 }
@@ -37,8 +37,6 @@ function initPostprocessingValidationSpans() {
         });
     });
 }
-
-//window.isImageValid = true;
 
 function previewImage(event) {
     let image = document.getElementById("preview-image");
@@ -76,8 +74,8 @@ function previewImage(event) {
 }
 
 function validateSizeChosen() {
-    const form = document.querySelector('form');
-    const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+    const table = document.querySelector('table');
+    const checkboxes = table.querySelectorAll('input[type="checkbox"]');
 
     if (checkboxes != null) 
     {
@@ -107,41 +105,7 @@ function removeInitialImage(event) {
 async function validateImage(event) {
 
     if (!window.isImageValid) {
-            console.log('kjgnvf')
             document.getElementById("image-validation").innerText = 'Wrong image';
         return false;
         }
-    /*console.log('here12');
-    event.preventDefault();
-
-    let form = document.getElementById("create-form");
-    let input = document.getElementById("upload-image");
-
-    if (input.files.length == 0) {
-        form.submit();
-        return;
-    }
-
-   let reader = new FileReader();
-    reader.onload = function (e) {
-
-        let img = new Image();
-
-        img.onerror = function () {
-            document.getElementById("image-validation").innerText = 'Wrong image';
-        };
-
-        img.onload = function (e) {
-            form.submit();
-        }
-
-        img.src = e.target.result;
-    };
-
-    reader.onloadend = () => {
-        console.log('end');
-    }
-
-    reader.readAsDataURL(input.files[0]);
-    return;*/
 }

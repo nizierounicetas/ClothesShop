@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - OnlineShop</title>
+    <title>@ViewData["Title"] - @WC.ShopTitle</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/OnlineShop.styles.css" asp-append-version="true" />
@@ -15,46 +15,73 @@
 </head>
 <body>
     <header class="main-header">
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-black border-bottom box-shadow mb-3 my-navbar">
+        <nav class="navbar navbar-expand-lg navbar-toggleable-lg bg-black border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">OnlineShop</a>
+                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">@WC.ShopTitle</a>
                 <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
+                <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
+                  
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Size" asp-action="Index">Size</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Item" asp-action="Index">Item</a>
-                        </li>
-                        <li class="nav-item right-column">
+
+                         @if (User.IsInRole(WC.AdminRole))
+                        {
+                             <li class="nav-item">
+                            <a 
+                                aria-haspopup="true" 
+                                aria-expanded="true" 
+                                aria-controls="dropdown1"
+                                class="nav-link text-white"
+                             >
+                            Content management<span class="arrow"></span>   
+                            </a>
+                            <ul class="dropdown-management" id="dropdown1">
+                                 <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Size" asp-action="Index">Size</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Item" asp-action="Index">Item</a>
+                                </li>
+                                <div class="dropdown-divider bg-white"></div>
+                                 <li class="nav-item">
+                                    <a id="manage" class="nav-link text-white" asp-area="Identity" asp-page="/Account/Register" title="Manage">Add admin</a>
+                                </li>
+                            </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
                                 @{
                                     var cart = httpContextAccessor.HttpContext.Session.Get<List<ShoppingCartItem>>(WC.SessionCart);
 
-                                     @if (cart != null && cart.Count != 0)
+                                         @if (cart != null && cart.Count != 0)
                                     {
                                         int count = 0;
                                         cart.ForEach(i => count += i.Amount);
             
-                                        <a class="nav-link text-white" asp-controller="Cart" asp-action="Index">
-                                        <img src="~/assets/cart.png" class="navbar-icon"> (@count)
-                                        </a>
+                                            <a class="nav-link text-white" asp-controller="Cart" asp-action="Index">
+                                            <img src="~/assets/cart.png" class="navbar-icon"> (@count)
+                                            </a>
                                     }
                                     else
                                     {
-                                        <a class="nav-link text-white" asp-controller="Cart" asp-action="Index">
-                                        <img src="~/assets/cart.png" class="navbar-icon"> (0)
-                                        </a>
+                                            <a class="nav-link text-white" asp-controller="Cart" asp-action="Index">
+                                            <img src="~/assets/cart.png" class="navbar-icon"> (0)
+                                            </a>
                                     }
                                 }
-                        </li>
+                            </li>
+                        }
                     </ul>
+
+                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
@@ -65,10 +92,19 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - OnlineShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="border-top footer">
+        <div class="container d-flex flex-wrap justify-content-between align-items-center">
+            <div style="font-size: 18px; font-weight: 800;">
+                &copy; 2023 - @WC.ShopTitle - <a class="text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3"><a class="text-white" target="_blank" href="https://t.me/nizierounicetas"><img class="navbar-icon" src="~/assets/telegram.png"></a></li>
+                <li class="ms-3"><a class="text-white" target="_blank" href="https://github.com/nizierounicetas"><img class="navbar-icon" src="~/assets/github.png"></a></li>
+                <li class="ms-3"><a class="text-white" target="_blank" href="https://www.instagram.com/n1zier_ou_nicetas_"><img class="navbar-icon" src="~/assets/instagram.png"></a></li>
+            </ul>
         </div>
+
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

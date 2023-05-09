@@ -1,0 +1,25 @@
+﻿@model KeyValuePair<SizedItem, int>
+<div class="card-body cart-group">
+    <div class="row h-100">
+        <div class="col-5 col-md-5 text-center py-2">
+            <img class="cart-icon-bar" src="@WC.ImagePath@Model.Key.Item.Image" />
+            </div>
+            <div class="col-8 col-lg-7">
+                <h5 class="item-sign-text">@Model.Key.Item.Category.Name.ToUpper() @Model.Key.Item.Name</h5>
+                <div class="description" style="font-weight: 800;">@Model.Key.Item.Price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) $</div>
+                <div class="description" style="font-weight: 800;">@Model.Key.Size.Name</div>
+                <a asp-controller="Home" asp-action="Details" asp-route-id="@Model.Key.Item.Id">Item page</a>
+                @if(Model.Key.Amount < Model.Value)
+                {
+                    <span asp-validation-for="@Model.Value" class="error-validation">Quantity exceeds available</span>
+                }
+            </div>
+            </div>
+
+<div class="btn-group">
+    <button asp-action="Delete" asp-route-id="@Model.Key.Id" class="customed-button"><img src="~/assets/delete.png" class="edit-icon inverted"></button>
+    <button asp-action="Decrement" asp-route-id="@Model.Key.Id" class="customed-button"><img src="~/assets/minus.png" class="edit-icon inverted" /></button>
+    <h2>@Model.Value</h2>
+    <button asp-action="Increment" asp-route-id="@Model.Key.Id" class="customed-button"><img src="~/assets/plus.png" class="edit-icon inverted" /></button>
+</div>
+</div>

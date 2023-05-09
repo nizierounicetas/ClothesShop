@@ -15,5 +15,7 @@ namespace OnlineShop.Data
         public DbSet<Size> Sizes { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<SizedItem> SizedItems { get; set; }
+
+        public DbSet<User> Users { get; set; }
     }
 }

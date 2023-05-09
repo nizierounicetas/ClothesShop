@@ -58,7 +58,7 @@
                     <tr>
                         <td width="5%">
                             @Html.HiddenFor(m => @Model.SizeVMList[i].Size.Code)
-                            <input asp-for=@Model.SizeVMList[i].Checked id=@Model.SizeVMList[i].Size.Code onchange="initDisabledInputAmount(this.id)" type="checkbox"/>
+                            <input asp-for=@Model.SizeVMList[i].Checked id=@Model.SizeVMList[i].Size.Code onchange="initDisabledInputAmount(this.id)" class="form-check-input" type="checkbox"/>
                         </td>
                         <td width="10%">@Model.SizeVMList[i].Size.Name</td>
                         @Html.HiddenFor(m => @Model.SizeVMList[i].Size.Name)
@@ -91,28 +91,15 @@
         initPostprocessingValidationSpans();
         
         document.getElementById("submit-btn").addEventListener('click', (event) => { 
-            if(!validateSizeChosen())// || !window.isImageValid)
+            try {
+                if (!validateSizeChosen()) {// || !window.isImageValid)
+                    event.preventDefault();
+                }
+            }
+            catch {
                 event.preventDefault();
+            }
         });
-       // document.getElementById("submit-btn").addEventListener('click', (event) => validateImage(event));
-       /* document.getElementById("submit-btn").addEventListener('click',async (event) => {
-            if (!await validateImage(event))
-            {
-                console.log(false);
-                event.preventDefault();
-            };
-        }, false);*/
-
-       /* document.getElementById("submit-btn").addEventListener('click', (event) => {
-            if (jQuery) {  
-                console.log(jQuery)
-                }
-                
-                else
-                {
-                    console.log(jQuery)
-                }
-        });*/
 
     </script>
 }

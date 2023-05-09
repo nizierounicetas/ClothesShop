@@ -21,17 +21,46 @@ namespace OnlineShop.Controllers
             this._dbContext = dbContext;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(HomeItemVM homeItemVM)
         {
-            HomeItemVM homeItemVM = new HomeItemVM()
+            if (homeItemVM == null)
             {
-                Items = _dbContext.Items.Include(i => i.Category).Include(i => i.SizedItems),
-                Categories = _dbContext.Categories,
-                Sizes = _dbContext.Sizes
-            };
+                homeItemVM = new HomeItemVM();
+            }
+
+            homeItemVM.Categories = _dbContext.Categories;
+
+            if (homeItemVM.CategoryId == null)
+            {
+                homeItemVM.Items = _dbContext.Items.Include(i => i.Category).Include(i => i.SizedItems);
+            }
+            else
+            {
+                homeItemVM.Items = _dbContext.Items.Include(i => i.Category).Include(i => i.SizedItems)
+                    .Where(i => i.CategoryId == homeItemVM.CategoryId);
+            }
+
+            if (homeItemVM.SexProp != null)
+            {
+                homeItemVM.Items = homeItemVM.Items.Where(i => i.Sex == homeItemVM.SexProp);
+            }
+
+            if (homeItemVM.PriceOrderProp != null)
+            {
+                if (homeItemVM.PriceOrderProp == PriceOrder.Ascending)
+                {
+                    homeItemVM.Items = homeItemVM.Items.OrderBy(i => i.Price);
+                }
+                else if (homeItemVM.PriceOrderProp == PriceOrder.Descending)
+                {
+                    homeItemVM.Items = homeItemVM.Items.OrderByDescending(i => i.Price);
+                }
+            }
 
             return View(homeItemVM);
         }
+
+        
 
         public IActionResult Privacy()
         {
@@ -143,6 +172,25 @@ namespace OnlineShop.Controllers
             }
 
             return sizes;
+        }
+
+        private IEnumerable<Sex> Sexes
+        {
+            get
+            {
+                return new List<Sex>() { Sex.Male, Sex.Female, Sex.Unisex };
+            }
+        }
+
+        private IEnumerable<SelectListItem> PriceOrders
+        {
+            get
+            {
+                return new List<SelectListItem>() {
+                    new SelectListItem(){ Value = PriceOrder.Ascending.ToString(), Text= "Price ascending"},
+                    new SelectListItem(){ Value = PriceOrder.Descending.ToString(), Text= "Price descending"}
+                    };
+            }
         }
     }
 }

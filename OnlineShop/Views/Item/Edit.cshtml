@@ -8,14 +8,14 @@
         @{
             if (Model.Item.Image != null)
             {
-                <img class="item-img-form" id="preview-image" src="@WC.ImagePath@Model.Item.Image"/>     
-                <a class="d-block" onclick="removeInitialImage(event)">Remove image</a>  
+                                        <img class="item-img-form" id="preview-image" src="@WC.ImagePath@Model.Item.Image"/>     
+                                        <a class="d-block" onclick="removeInitialImage(event)">Remove image</a>  
             }
             else
             {
-                <img class="item-img-form" id="preview-image" src="~/assets/no-photos.png"/>
+                                        <img class="item-img-form" id="preview-image" src="~/assets/no-photos.png"/>
             }
-             <input id="remove-image" type="checkbox" asp-for="@Model.RemoveImage" hidden/>
+                                     <input id="remove-image" type="checkbox" asp-for="@Model.RemoveImage" hidden/>
         }
          <label asp-for="Item.Image"></label>
          <input id="upload-image" type="file" accept="image/*" name="files" multiple onchange="previewImage()" />
@@ -69,7 +69,7 @@
                     <tr>
                         <td width="5%">
                             @Html.HiddenFor(m => @Model.SizeVMList[i].Size.Code)
-                            <input asp-for=@Model.SizeVMList[i].Checked id=@Model.SizeVMList[i].Size.Code onchange="initDisabledInputAmount(this.id)" type="checkbox"/>
+                            <input asp-for=@Model.SizeVMList[i].Checked id=@Model.SizeVMList[i].Size.Code onchange="initDisabledInputAmount(this.id)" class="form-check-input" type="checkbox"/>
                         </td>
                         <td width="10%">@Model.SizeVMList[i].Size.Name</td>
                         @Html.HiddenFor(m => @Model.SizeVMList[i].Size.Name)
@@ -102,8 +102,14 @@
         initPostprocessingValidationSpans();
 
         document.getElementById("submit-btn").addEventListener('click', (event) => { 
-            if(!validateSizeChosen())// || !window.isImageValid)
+            try {
+                if (!validateSizeChosen()) {// || !window.isImageValid)
+                    event.preventDefault();
+                }
+            }
+            catch {
                 event.preventDefault();
+            }
         });
 
       

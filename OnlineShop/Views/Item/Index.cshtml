@@ -20,6 +20,9 @@
             <thead>
                 <tr>
                     <th>
+                        Image
+                    </th>
+                    <th>
                         Name
                     </th>
                     <th>
@@ -39,14 +42,24 @@
             <tbody>
                 @foreach(var item in Model)
                 {
-                    <tr>
+                        <tr>
+                            <td>
+                                @if (item.Image != null)
+                                {
+                                    <img src="@WC.ImagePath@item.Image" width="40px"/>
+                                }
+                                else
+                                {
+                                    <img src="~/assets/no-photos.png"/>
+                                }
+                            </td>
                         <td width="20%">@item.Name</td>
                         <td width="20%">@item.Category.Name</td>
                         <td width="20%">@item.Sex.ToString()</td>
                         <td width="20%">@item.Price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) $</td>
                          <td>
-                              <a asp-controller="Item" asp-route-Id="@item.Id" asp-action="Edit"><img src="~/assets/edit.png" class="edit-icon"></a>
-                              <a asp-controller="Item" asp-route-Id="@item.Id" asp-action="Delete"><img src="~/assets/delete.png" class="edit-icon"></a>
+                              <a asp-controller="Item" asp-route-Id="@item.Id" asp-action="Edit" title="edit"><img src="~/assets/edit.png" class="edit-icon"></a>
+                              <a asp-controller="Item" asp-route-Id="@item.Id" asp-action="Delete" title="delete"><img src="~/assets/delete.png" class="edit-icon"></a>
                          </td>
                     </tr>
 

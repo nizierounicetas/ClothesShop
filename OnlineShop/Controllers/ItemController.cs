@@ -20,6 +20,16 @@ namespace OnlineShop.Controllers
 
         public IActionResult Index()
         {
+            if (TempData[WC.MessageAlertName] != null)
+            {
+                ViewData[WC.MessageAlertName] = TempData[WC.MessageAlertName];
+            }
+
+            if (TempData[WC.ErrorMessageAlertName] != null)
+            {
+                ViewData[WC.ErrorMessageAlertName] = TempData[WC.ErrorMessageAlertName];
+            }
+
             return View(_dbContext.Items.Include(i => i.Category));
         }
 
@@ -74,6 +84,8 @@ namespace OnlineShop.Controllers
 
             await _dbContext.AddAsync(itemVM.Item);
             await _dbContext.SaveChangesAsync();
+
+            TempData[WC.MessageAlertName] = $"Item {itemVM.Item.Name} added succesfully!";
 
             return RedirectToAction("Index");
         }
@@ -205,7 +217,9 @@ namespace OnlineShop.Controllers
             _dbContext.Items.Update(itemVM.Item);
             await _dbContext.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+            TempData[WC.MessageAlertName] = $"Item {itemVM.Item.Name} edited succesfully!";
+
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Delete(int? id)
@@ -260,7 +274,9 @@ namespace OnlineShop.Controllers
             _dbContext.Items.Remove(item);
             await _dbContext.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+            TempData[WC.MessageAlertName] = $"Item {item.Name} deleted succesfully!";
+
+            return RedirectToAction(nameof(Index));
         }
 
         public IEnumerable<SelectListItem> SexSelectList

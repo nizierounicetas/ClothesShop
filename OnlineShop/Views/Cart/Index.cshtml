@@ -1,0 +1,45 @@
+﻿@using OnlineShop.Utility
+@inject IHttpContextAccessor httpContextAccessor
+@model OnlineShop.ViewModels.CartVM
+
+@if(@Model.ItemsDictionary.Count == 0)
+{
+    <div class="cart-container">
+        <img src="~/assets/logo.png" style="width: 15%"/>
+        <h2>Cart is empty</h2>
+    </div>
+}
+else
+{
+    int count = Model.ItemsDictionary.Values.Sum();
+    double total = 0;
+    @foreach(var (si, amount) in Model.ItemsDictionary)
+    {
+        total += si.Item.Price * amount;
+    }
+    <div class="frame-static">
+    <form method="post">
+                    <div class="cart-header bg-black container text-white item-sign-text mt-0" >
+                            <img src="~/assets/cart.png" /> (@count)
+                    </div>
+                    @foreach(KeyValuePair<SizedItem, int> pair in Model.ItemsDictionary)
+                    {
+                         <partial name="_CartItem" model="pair" /> 
+                    }
+                    <div class="cart-footer">
+                        <div class="cart-group" style="padding-left: 10%;">
+                            <div>
+                                <label class="item-sign-text">Total: @total.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) $</label>
+                            </div>
+                            <div>
+                                <button type="submit" class="customed-button">Continue</button>
+                            </div>
+                        </div>
+                    </div>
+    </form>
+     </div>
+}
+
+@section Scripts {
+    @{<partial name="_Alert"/>}
+}

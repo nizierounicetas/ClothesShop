@@ -20,11 +20,31 @@ body {
 footer {
     background-color: black;
     color: white;
+    margin-top: 20px;
 }
 .custom-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+
+
+.filter-roll {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+ .filter-roll::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.filter-roll {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 }
 
 @media (max-width: 525px) {
@@ -92,6 +112,7 @@ footer {
 
 .grid-item {
     width: 100%;
+    max-width: 300px;
     margin: 4px;
     background-color: white;
     display: flex;
@@ -212,7 +233,7 @@ h2 {
     font-weight: 800;
 }
 
-.frame, .form-container {
+.frame, .form-container, .frame-static {
     border: 3px solid black;
     border-radius: 20px;
 }
@@ -246,6 +267,7 @@ input[type="email"],
 input[type="number"],
 input[type = "date"],
 input[type="file"],
+input[type="password"],
 textarea,
 select {
     font-family: Arial, Helvetica, sans-serif;
@@ -375,3 +397,139 @@ select,
     height: fit-content;
 }
 
+.dropdown-management {
+    padding: 2px 1.5rem;
+    height: 0px;
+    overflow: hidden;
+    transition: height ease 0.2s;
+}
+
+ul li:hover .dropdown-management {
+    height: 200px;
+}
+
+
+.arrow {
+    width: 0.5em;
+    height: 0.5em;
+    display: inline-block;
+    vertical-align: middle;
+    border-left: 0.15em solid currentColor;
+    border-bottom: 0.15em solid currentColor;
+    transform: rotate(-45deg);
+    margin-left: 0.38em;
+    margin-top: -0.25em;
+    transition: transform 100ms ease-in-out;
+}
+
+ul li:hover > a > .arrow {
+    transform: rotate(-225deg);
+    margin-top: 4px;
+}
+
+@media (min-width: 990px) {
+
+    .menus {
+        position: static;
+        visibility: visible;
+        display: flex;
+        transform: initial;
+    }
+
+
+    ul li {
+        position: relative;
+    }
+
+    .dropdown-management {
+        position: absolute;
+        right: 0;
+        left: auto;
+        z-index: 99;
+        min-width: 10rem;
+        padding: 0;
+        background-color: black;
+        border-radius: 0 0 0.5rem 0.5rem;
+    }
+
+    ul li:hover .dropdown-management {
+        height: 200px;
+    }
+}
+
+.logout-btn {
+    display: flex;
+    background-color: black;
+    border: none;
+    font-size: 20px;
+    font-weight: 800;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.cart-container {
+    text-align: center;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+}
+
+.btn-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-group {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media(max-width: 550px) {
+    .cart-group {
+        flex-direction: column;
+    }
+}
+
+.cart-item-img {
+    width: inherit;
+    filter: invert(100%);
+}
+
+.cart-header {
+    border-color: black;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    padding: 10px;
+}
+
+.cart-header img {
+    width: 50px;
+    filter: invert(100%);
+}
+
+.cart-icon-bar {
+    width: 200px;
+}
+
+.cart-footer {
+    border-top: 3px solid black;
+}
+
+.password-input-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.password-input-container span {
+     padding-top: 12px;
+     padding-left: 8px;
+}
+
+.password-input-container span img {
+    width: 20px;
+}

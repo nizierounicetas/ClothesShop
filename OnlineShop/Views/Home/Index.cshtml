@@ -2,18 +2,82 @@
 
 <div class="container">
     <div class="text-center">
-        <button class="customed-button filter-button" data-filter="all">All</button>
+        <div class="filter-block">
+        <div class="filter-roll">
+        @if (@Model.CategoryId == null)
+        {
+            <a asp-action="Index" asp-route-CategoryId="@null" class="customed-button filter-button" data-filter="all">All</a>
+        }else
+        {
+            <a asp-action="Index" asp-route-CategoryId="@null" class="customed-button-light filter-button" data-filter="all">All</a>
+        }
         @foreach(var category in Model.Categories)
         {
-            <button class="customed-button-light filter-button" data-filter="@category.Code">@category.Name</button>
+            if (category.Code == @Model.CategoryId)
+            {
+                <a asp-action="Index" asp-route-CategoryId="@category.Code" asp-route-SexProp="@Model.SexProp" class="customed-button filter-button" data-filter="@category.Code">@category.Name</a>
+            }
+            else
+            {
+                <a asp-action="Index" asp-route-CategoryId="@category.Code" asp-route-SexProp="@Model.SexProp" class="customed-button-light filter-button" data-filter="@category.Code">@category.Name</a>
+            }
         }
-        <br/>
+        </div>
+        <div class="filter-roll">
+        @if (@Model.SexProp == null)
+        {
+            <a asp-action="Index" asp-route-SexProp="@null" asp-route-CategoryId="@Model.CategoryId" class="customed-button filter-button" data-filter="all">All</a>
+        }else
+        {
+            <a asp-action="Index" asp-route-SexProp="@null" asp-route-CategoryId="@Model.CategoryId" class="customed-button-light filter-button" data-filter="all">All</a>
+        }
+        @foreach(var sex in Model.Sexes)
+        {
+            if (sex == @Model.SexProp)
+            {
+                <a asp-action="Index" asp-route-SexProp="@sex" asp-route-CategoryId="@Model.CategoryId" class="customed-button filter-button">@sex</a>
+            }
+            else
+            {
+                <a asp-action="Index" asp-route-SexProp="@sex" asp-route-CategoryId="@Model.CategoryId" class="customed-button-light filter-button">@sex</a>
+            }
+        }
+        </div>
+        <div class="filter-roll">
+        <form method="get" asp-action="Index">
+            <input asp-for="@Model.CategoryId" hidden/>
+            <input asp-for="@Model.SexProp" hidden />
+
+            <select asp-for="@Model.PriceOrderProp" asp-items="@Model.PriceOrders">
+             <option selected disabled>Sorting</option>
+            </select>
+            <span asp-validation-for="@Model.PriceOrderProp" class="error-validation"></span>
+
+            <button type="submit" class="customed-button">Apply</button>
+         </form>
+         </div>
+         </div>
+
         <div class="grid-wrapper">
-            @foreach(var item in Model.Items)
+            @if (Model.Items.Count() == 0)
+            {
+                <div class="cart-container">
+                    <img src="~/assets/logo.png" style="width: 15%"/>
+                    <h2>No items</h2>
+                </div>
+            }
+            else
+            {
+                @foreach(var item in Model.Items)
             {
                 <partial name="_ItemCard" model="item" />       
+            }
             }
         </div>
 
     </div>
 </div>
+
+@section Scripts {
+     @{ <partial name="_ValidationScriptsPartial" /> }
+}
