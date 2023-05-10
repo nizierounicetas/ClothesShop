@@ -57,6 +57,16 @@ namespace OnlineShop.Controllers
                 }
             }
 
+            if (TempData[WC.MessageAlertName] != null)
+            {
+                ViewData[WC.MessageAlertName] = TempData[WC.MessageAlertName];
+            }
+
+            if (TempData[WC.ErrorMessageAlertName] != null)
+            {
+                ViewData[WC.ErrorMessageAlertName] = TempData[WC.ErrorMessageAlertName];
+            }
+
             return View(homeItemVM);
         }
 

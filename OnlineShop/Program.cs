@@ -22,6 +22,8 @@ builder.Services.AddSession(options =>{
     options.Cookie.IsEssential = true;
 });
 
+builder.Services.AddSingleton<OnlineShop.Utility.MutexSynchronizer>();
+
 var app = builder.Build();
 
 var defaultDateCulture = builder.Configuration["SiteLocale"];

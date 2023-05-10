@@ -1,0 +1,89 @@
+﻿@model OnlineShop.ViewModels.SummaryVM
+
+<div class="form-container col-8 offset-2">
+    <form method="post">
+
+        @{
+            int count = Model.ItemsDictionary.Values.Sum();
+            double total = 0;
+                @foreach(var (si, amount) in Model.ItemsDictionary)
+            {
+                total += si.Item.Price * amount;
+            }
+        }
+
+        <h2>Your order (@count)</h2>
+
+        <label asp-for="@Model.User.Email"></label>
+        <input asp-for="@Model.User.Email" disabled>
+
+        <label asp-for="@Model.User.FirstName"></label>
+        <input asp-for="@Model.User.FirstName" disabled>
+
+        <label asp-for="@Model.User.LastName"></label>
+        <input asp-for="@Model.User.LastName" disabled>
+
+        <label asp-for="@Model.PhoneNumber"></label>
+        <input asp-for="@Model.PhoneNumber" value="@Model.User.PhoneNumber">
+        <span asp-validation-for="@Model.PhoneNumber" class="error-validation"></span>
+
+        <label asp-for="@Model.Address"></label>
+        <textarea asp-for="@Model.Address">@Model.User.Address</textarea>
+        <span asp-validation-for="@Model.Address" class="error-validation"></span>
+
+        <label asp-for="@Model.Notes"></label>
+        <textarea asp-for="@Model.Notes"></textarea>
+        <span asp-validation-for="@Model.Notes" class="error-validation"></span>
+
+        <label asp-for="@Model.ItemsDictionary"></label>
+        <div class="frame">
+         <table>
+             <thead>
+                 <tr>
+                     <th>
+                         Name
+                     </th>
+                     <th>
+                         Size
+                     </th>
+                     <th>
+                         Amount
+                     </th>
+                     <th>
+                         Price
+                     </th>
+                 </tr>
+              </thead>
+            <tbody>
+                @foreach(var (si, amount) in Model.ItemsDictionary)
+                {
+                    <tr>
+                        <td>
+                            @si.Item.Category.Name.ToUpper() si.Item.Name
+                        </td>
+                        <td>
+                            @si.Size.Name
+                        </td>
+                        <td>
+                            @amount
+                        </td>
+                        <td>
+                            @si.Item.Price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) $
+                        </td>
+                    </tr>
+                }
+             </tbody>
+        </table>
+        </div>
+
+        <h2 style="margin-top: 20px">Total: @total.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) $</h2>
+        
+        <input type="submit" class="customed-button" value="Order" />
+        <a asp-controller="Cart" asp-action="Index">Back to cart</a>
+
+    </form>
+</div>
+
+@section Scripts {
+    @{ <partial name="_ValidationScriptsPartial" /> }
+}

@@ -10,6 +10,7 @@
         <div class="form-group row">
             <h2>Log in</h2>
         </div>
+         <div asp-validation-summary="ModelOnly" class="error-validation"></div>
 
         <label asp-for="Input.Email"></label>
         <input asp-for="Input.Email" autocomplete="username" area-required="true"/>

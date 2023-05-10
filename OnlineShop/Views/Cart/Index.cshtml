@@ -18,7 +18,7 @@ else
         total += si.Item.Price * amount;
     }
     <div class="frame-static">
-    <form method="post">
+    <form method="get">
                     <div class="cart-header bg-black container text-white item-sign-text mt-0" >
                             <img src="~/assets/cart.png" /> (@count)
                     </div>
@@ -32,7 +32,7 @@ else
                                 <label class="item-sign-text">Total: @total.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) $</label>
                             </div>
                             <div>
-                                <button type="submit" class="customed-button">Continue</button>
+                                <button asp-controller="Summary" asp-action="Index" class="customed-button">Continue</button>
                             </div>
                         </div>
                     </div>

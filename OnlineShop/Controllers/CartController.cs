@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineShop.Data;
@@ -46,8 +47,6 @@ namespace OnlineShop.Controllers
             return View(cartVM);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Delete(int? id)
         {
             List<ShoppingCartItem> shoppingCartList = HttpContext.Session.Get<List<ShoppingCartItem>>(WC.SessionCart);
@@ -64,8 +63,6 @@ namespace OnlineShop.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Decrement(int? id)
         {
             List<ShoppingCartItem> shoppingCartList = HttpContext.Session.Get<List<ShoppingCartItem>>(WC.SessionCart);
@@ -89,8 +86,6 @@ namespace OnlineShop.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Increment(int? id)
         {
             List<ShoppingCartItem> shoppingCartList = HttpContext.Session.Get<List<ShoppingCartItem>>(WC.SessionCart);
@@ -118,5 +113,7 @@ namespace OnlineShop.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+
     }
 }

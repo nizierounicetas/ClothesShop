@@ -268,6 +268,7 @@ input[type="number"],
 input[type = "date"],
 input[type="file"],
 input[type="password"],
+input[type="tel"],
 textarea,
 select {
     font-family: Arial, Helvetica, sans-serif;

@@ -102,16 +102,21 @@ namespace OnlineShop.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
+            [Required]
             [Display(Name = "First name")]
             public string FirstName { get; set; }
 
+            [Required]
             [Display(Name = "Last name")]
             public string LastName { get; set; }
 
-            [Display(Name = "Phone number")]
-            [DataType(DataType.PhoneNumber)]
-            public string PhoneNumber;
+            [Required]
+            [Display(Name = "Phone")]
+            [RegularExpression("^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$", ErrorMessage = "Please enter valid phone no.")]
+            [Phone]
+            public string PhoneNumber { get; set; }
 
+            public string? Address { get; set; }
 
         }
 
@@ -146,6 +151,7 @@ namespace OnlineShop.Areas.Identity.Pages.Account
                 user.LastName = Input.LastName;
                 user.FirstName = Input.FirstName;
                 user.PhoneNumber = Input.PhoneNumber;
+                user.Address = Input.Address;
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
 

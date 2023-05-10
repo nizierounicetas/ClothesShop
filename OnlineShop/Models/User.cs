@@ -10,5 +10,7 @@ namespace OnlineShop.Models
 
         [Display(Name = "Last name")]
         public string LastName { get; set; }
+
+        public string? Address { get; set; }
     }
 }

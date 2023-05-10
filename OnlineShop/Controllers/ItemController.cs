@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using OnlineShop.Data;
 using OnlineShop.Models;
 using OnlineShop.ViewModels;
+using OnlineShop.Utility;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OnlineShop.Controllers
 {
@@ -11,11 +13,12 @@ namespace OnlineShop.Controllers
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IWebHostEnvironment _webHostEnvironment;
-
-        public ItemController(ApplicationDbContext dbContext, IWebHostEnvironment webHostEnvironment)
+        private readonly MutexSynchronizer _mutexSynchronizer;
+        public ItemController(ApplicationDbContext dbContext, IWebHostEnvironment webHostEnvironment, MutexSynchronizer mutexSynchronizer)
         {
             _dbContext = dbContext;
             _webHostEnvironment = webHostEnvironment;
+            _mutexSynchronizer = mutexSynchronizer;
         }
 
         public IActionResult Index()
@@ -157,17 +160,21 @@ namespace OnlineShop.Controllers
                 if (itemVM.Item.Image != null)
                 {
                     var path = $"{_webHostEnvironment.WebRootPath}{WC.ImagePath}{itemVM.Item.Image}";
-                    if (System.IO.File.Exists(path))
+                    try
                     {
-                        try
+                        _mutexSynchronizer.ItemImageMutex.WaitOne();
+                        if (System.IO.File.Exists(path))
                         {
-                            // TODO: syncronize
-                            System.IO.File.Delete(path);
+                                System.IO.File.Delete(path);
                         }
-                        catch (Exception ex)
-                        {
-                            System.Console.Error.WriteLine(ex.Message.ToString());
-                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Console.Error.WriteLine(ex.Message.ToString());
+                    }
+                    finally
+                    {
+                        _mutexSynchronizer.ItemImageMutex.ReleaseMutex();
                     }
                 }
 
@@ -191,7 +198,6 @@ namespace OnlineShop.Controllers
                 itemVM.Item.Image = fileName + extension;
             }
 
-            //_dbContext.SizedItems.RemoveRange(_dbContext.SizedItems.Where(si => si.ItemId == itemVM.Item.Id));
             List<SizedItem> sizedItems = new List<SizedItem>();
             foreach (var sizeVM in itemVM.SizeVMList)
             {
@@ -257,17 +263,22 @@ namespace OnlineShop.Controllers
             if (item.Image != null)
             {
                 var path = $"{_webHostEnvironment.WebRootPath}{WC.ImagePath}{item.Image}";
-                if (System.IO.File.Exists(path))
+                try
                 {
-                    try
+                    _mutexSynchronizer.ItemImageMutex.WaitOne();
+
+                    if (System.IO.File.Exists(path))
                     {
-                        // TODO: syncronize
                         System.IO.File.Delete(path);
                     }
-                    catch (Exception ex)
-                    {
-                        System.Console.Error.WriteLine(ex.Message.ToString());
-                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Console.Error.WriteLine(ex.Message.ToString());
+                }
+                finally
+                {
+                    _mutexSynchronizer.ItemImageMutex.ReleaseMutex();
                 }
             }
 
