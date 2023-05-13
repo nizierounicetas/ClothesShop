@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Order>
+
+<div class="container pt-5">
+    <div class="custom-row">
+        <div>
+            <h2><img src="~/assets/confirmed.png" style="width: 40px"/> Confirmed Orders</h2>
+        </div> 
+
+        <div>
+            <a asp-action="Index" class="customed-button">Back</a>
+        </div>
+    </div>
+
+    <br /><br />
+
+    <div class="frame">
+          @if (Model.Count() > 0)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        User email
+                    </th>
+                    <th>
+                        Order time
+                    </th>
+                    <th>
+                        Confirmation time
+                    </th>
+                    <th>
+                        Total sum
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var order in Model)
+                {
+                    <tr>
+                        <td>@order.Id</td>
+                         <td>@order.User.Email</td>
+                         <td>@order.OrderTime.ToString(WC.DateTimeFormat)</td>
+                             @if (@order.ResponseTime != null)
+                                {
+                                <td>
+                                    @order.ResponseTime.Value.ToString(WC.DateTimeFormat)
+                                </td>
+                            }
+                            else
+                            {
+                                <td>Not defined</td>
+                            }
+                         <td>@order.TotalSum.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) $</td>
+                         <td>
+                              <a asp-route-Id="@order.Id" asp-action="Restore" title="restore"><img src="~/assets/not_considered.png" class="edit-icon"></a>
+                         </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p >No orders</p>
+    }
+    </div>
+</div>
+@section Scripts {
+    @{<partial name="_OrderAlert"></partial>}
+}

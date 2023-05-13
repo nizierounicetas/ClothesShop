@@ -43,10 +43,13 @@
                                     <a class="nav-link text-white" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Size" asp-action="Index">Size</a>
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Size" asp-action="Index">Sizes</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Item" asp-action="Index">Item</a>
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Item" asp-action="Index">Items</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Order" asp-action="Index">Orders</a>
                                 </li>
                                 <div class="dropdown-divider bg-white"></div>
                                  <li class="nav-item">
@@ -99,9 +102,9 @@
             </div>
 
             <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                <li class="ms-3"><a class="text-white" target="_blank" href="https://t.me/nizierounicetas"><img class="navbar-icon" src="~/assets/telegram.png"></a></li>
-                <li class="ms-3"><a class="text-white" target="_blank" href="https://github.com/nizierounicetas"><img class="navbar-icon" src="~/assets/github.png"></a></li>
-                <li class="ms-3"><a class="text-white" target="_blank" href="https://www.instagram.com/n1zier_ou_nicetas_"><img class="navbar-icon" src="~/assets/instagram.png"></a></li>
+                <li class="ms-3"><a class="text-white" target="_blank" href="@WC.TelegramLink"><img class="navbar-icon" src="~/assets/telegram.png"></a></li>
+                <li class="ms-3"><a class="text-white" target="_blank" href="@WC.GithubLink"><img class="navbar-icon" src="~/assets/github.png"></a></li>
+                <li class="ms-3"><a class="text-white" target="_blank" href="@WC.InstagramLink"><img class="navbar-icon" src="~/assets/instagram.png"></a></li>
             </ul>
         </div>
 

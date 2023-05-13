@@ -68,6 +68,13 @@ footer {
     }
 }
 
+@media (max-width: 780px)
+{
+    .order-table-frame {
+        overflow: scroll;
+    }
+}
+
 @media (max-width: 660px)
 {
     .right-column {
@@ -269,6 +276,7 @@ input[type = "date"],
 input[type="file"],
 input[type="password"],
 input[type="tel"],
+input[type="datetime-local"],
 textarea,
 select {
     font-family: Arial, Helvetica, sans-serif;
@@ -406,7 +414,7 @@ select,
 }
 
 ul li:hover .dropdown-management {
-    height: 200px;
+    height: 250px;
 }
 
 
@@ -454,7 +462,7 @@ ul li:hover > a > .arrow {
     }
 
     ul li:hover .dropdown-management {
-        height: 200px;
+        height: 250px;
     }
 }
 
@@ -533,4 +541,13 @@ ul li:hover > a > .arrow {
 
 .password-input-container span img {
     width: 20px;
+}
+
+.order-container {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }

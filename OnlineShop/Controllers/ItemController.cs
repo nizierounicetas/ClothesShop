@@ -9,13 +9,17 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace OnlineShop.Controllers
 {
+    [Authorize(Roles = WC.AdminRole)]
     public class ItemController : Controller
     {
+        private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _dbContext;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly MutexSynchronizer _mutexSynchronizer;
-        public ItemController(ApplicationDbContext dbContext, IWebHostEnvironment webHostEnvironment, MutexSynchronizer mutexSynchronizer)
+
+        public ItemController(ILogger<HomeController> logger, ApplicationDbContext dbContext, IWebHostEnvironment webHostEnvironment, MutexSynchronizer mutexSynchronizer)
         {
+            _logger = logger;
             _dbContext = dbContext;
             _webHostEnvironment = webHostEnvironment;
             _mutexSynchronizer = mutexSynchronizer;
@@ -33,7 +37,7 @@ namespace OnlineShop.Controllers
                 ViewData[WC.ErrorMessageAlertName] = TempData[WC.ErrorMessageAlertName];
             }
 
-            return View(_dbContext.Items.Include(i => i.Category));
+            return View(_dbContext.Items.Include(i => i.Category).OrderByDescending(i => i.Id));
         }
 
 
@@ -170,7 +174,7 @@ namespace OnlineShop.Controllers
                     }
                     catch (Exception ex)
                     {
-                        System.Console.Error.WriteLine(ex.Message.ToString());
+                        _logger.LogError(ex.Message);
                     }
                     finally
                     {
@@ -274,7 +278,7 @@ namespace OnlineShop.Controllers
                 }
                 catch (Exception ex)
                 {
-                    System.Console.Error.WriteLine(ex.Message.ToString());
+                    _logger.LogError(ex.Message);
                 }
                 finally
                 {

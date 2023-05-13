@@ -1,0 +1,13 @@
+﻿ 
+<div class="frame col-6 offset-3">
+    <h2 style="text-align: center;">Orders</h2>
+<div class="order-container">
+    <a class="customed-button" asp-action="NotConsidered"><img src="~/assets/not_considered.png" class="edit-icon inverted">Not considered</a>
+    <a class="customed-button" asp-action="Confirmed"><img src="~/assets/confirmed.png" class="edit-icon inverted">Confirmed</a>
+    <a class="customed-button" asp-action="Rejected"><img src="~/assets/denied.png" class="edit-icon inverted">Rejected</a>
+</div>
+</div>
+
+@section Scripts {
+    @{<partial name="_Alert" />}
+}

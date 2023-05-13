@@ -1,0 +1,106 @@
+﻿@model Order
+
+<div class="form-container col-8 offset-2">
+    <form method="post" asp-action="Confirm" enctype="multipart/form-data">
+        <div class="form-group row">
+             <h2>Confirm order</h2>
+        </div>
+
+        <input asp-for="@Model.Id" hidden/>
+         <label asp-for="@Model.Id"></label>
+         <input asp-for="@Model.Id" disabled/>
+
+         <label asp-for="@Model.OrderTime"></label>
+         <input asp-for="@Model.OrderTime" disabled/>
+
+         <label asp-for="@Model.User.Email" ></label>
+         <input asp-for="@Model.User.Email" disabled />
+
+         <label asp-for="@Model.User.FirstName" ></label>
+         <input asp-for="@Model.User.FirstName" disabled />
+
+         <label asp-for="@Model.User.LastName" ></label>
+         <input asp-for="@Model.User.LastName" disabled />
+
+         <label asp-for="@Model.OrderStatus" ></label>
+         <input asp-for="@Model.OrderStatus" disabled />
+
+         <label asp-for="@Model.PhoneNumber"></label>
+         <input asp-for="@Model.PhoneNumber" disabled />
+
+         <label asp-for="@Model.Address"></label>
+         <textarea asp-for="@Model.Address" disabled ></textarea>
+
+         <label asp-for="@Model.TotalSum"></label>
+         <input asp-for="@Model.TotalSum" type="number" disabled />
+
+         <label asp-for="@Model.Notes"></label>
+         <textarea asp-for="@Model.Notes" disabled ></textarea>
+
+         <label asp-for="@Model.Commentaries"></label>
+         <textarea asp-for="@Model.Commentaries" disabled ></textarea>
+
+           <div class="frame order-table-frame">
+          @if (@Model.OrderedSizedItems != null && @Model.OrderedSizedItems.Count() > 0)
+            {
+                <table>
+                     <thead>
+                         <tr>
+                           <th>
+                             Id
+                           </th>
+                           <th>
+                             Item  
+                          </th>
+                           <th>
+                             Size
+                          </th>
+                           <th>
+                             Ordered amount
+                          </th>
+                          <th>
+                             Available amount
+                          </th>
+                          <th>
+                              Item's page
+                          </th>
+                         </tr>
+                     </thead>
+            <tbody>
+                @for(int i = 0; i < Model.OrderedSizedItems.Count(); i++)
+                {
+                    <tr>
+
+                        <td>@Model.OrderedSizedItems[i].SizedItemId</td>
+                        <td>@Model.OrderedSizedItems[i].SizedItem.Item.Category.Name.ToUpper() @Model.OrderedSizedItems[i].SizedItem.Item.Name</td>
+                        <td>@Model.OrderedSizedItems[i].SizedItem.Size.Name</td>
+                        <td width=10%>
+                            <input asp-for="@Model.OrderedSizedItems[i].OrderedAmount" disabled/>
+                        </td>
+                        <td>
+                            @Model.OrderedSizedItems[i].SizedItem.Amount
+                        </td>
+                        <td>
+                                <a asp-controller="Home" asp-action="Details" asp-route-id="@Model.OrderedSizedItems[i].SizedItem.Item.Id">
+                                    Link
+                                </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+         </table>
+            }
+            else
+            {
+              <p >No ordered items</p>
+            }
+            </div>
+
+         <input id="submit-btn" type="submit" class="customed-button" value="Confirm"/>
+          <a asp-action="NotConsidered">Back</a>
+    </form>
+</div>
+@section Scripts {
+    @{ <partial name="_OrderAlert" /> }
+    <script src="~/js/item/functions.js"></script>
+}

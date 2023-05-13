@@ -40,7 +40,11 @@
                         </select>
                         <span asp-validation-for="@Model.ChosenSizedItemId" class="error-validation"></span>
                     </div>
-                    <button type="submit" class="customed-button">Add to cart</button>
+
+                    if (!User.IsInRole(WC.AdminRole))
+                    {
+                         <button type="submit" class="customed-button">Add to cart</button>
+                    }
                 }
                 else
                 {

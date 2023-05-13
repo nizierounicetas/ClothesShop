@@ -23,6 +23,7 @@ builder.Services.AddSession(options =>{
 });
 
 builder.Services.AddSingleton<OnlineShop.Utility.MutexSynchronizer>();
+builder.Services.AddTransient<OnlineShop.Email.EmailService>();
 
 var app = builder.Build();
 
