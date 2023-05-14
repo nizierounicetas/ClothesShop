@@ -310,7 +310,7 @@ namespace OnlineShop.Controllers
         {
             get
             {
-                return _dbContext.Categories.Select(
+                return _dbContext.Categories.OrderBy(c => c.Name).Select(
                c => new SelectListItem
                {
                    Text = c.Name,

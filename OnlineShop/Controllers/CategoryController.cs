@@ -27,7 +27,7 @@ namespace OnlineShop.Controllers
                 ViewData[WC.ErrorMessageAlertName] = TempData[WC.ErrorMessageAlertName];
             }
 
-            return View(_dbContext.Categories);
+            return View(_dbContext.Categories.OrderBy(c => c.Name));
         }
 
         [HttpGet]

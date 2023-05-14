@@ -37,7 +37,7 @@ namespace OnlineShop.Models
         public string? Notes { get; set; }
 
         [MaxLength(300, ErrorMessage = "Max length is 300 symbols")]
-        [Display(Name = "Admin's commentaries")]
+        [Display(Name = "Admin's comments")]
         public string? Commentaries { get; set; }
 
         [Required]

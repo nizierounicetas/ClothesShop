@@ -83,6 +83,7 @@ namespace OnlineShop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Order order)
         {
+            var r = ModelState.IsValid;
             foreach (var orderedItem in order.OrderedSizedItems)
             {
 
@@ -344,7 +345,7 @@ namespace OnlineShop.Controllers
                 ViewData[WC.ErrorMessageAlertName] = TempData[WC.ErrorMessageAlertName];
             }
 
-            var confirmedOrders = _dbContext.Orders.Include(o => o.User).Where(o => o.OrderStatus == OrderStatus.Confirmed);
+            var confirmedOrders = _dbContext.Orders.Include(o => o.User).Where(o => o.OrderStatus == OrderStatus.Confirmed).OrderByDescending(o => o.Id); ;
             return View(confirmedOrders);
         }
 
@@ -360,7 +361,7 @@ namespace OnlineShop.Controllers
                 ViewData[WC.ErrorMessageAlertName] = TempData[WC.ErrorMessageAlertName];
             }
 
-            var deniedOrders = _dbContext.Orders.Include(o => o.User).Where(o => o.OrderStatus == OrderStatus.Rejected);
+            var deniedOrders = _dbContext.Orders.Include(o => o.User).Where(o => o.OrderStatus == OrderStatus.Rejected).OrderByDescending(o => o.Id); ;
             return View(deniedOrders);
         }
 

@@ -29,7 +29,7 @@ namespace OnlineShop.Controllers
                 homeItemVM = new HomeItemVM();
             }
 
-            homeItemVM.Categories = _dbContext.Categories;
+            homeItemVM.Categories = _dbContext.Categories.OrderBy(c => c.Name);
 
             if (homeItemVM.CategoryId == null)
             {

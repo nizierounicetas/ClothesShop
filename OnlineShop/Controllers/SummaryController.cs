@@ -37,7 +37,8 @@ namespace OnlineShop.Controllers
             SummaryVM summaryVM = new SummaryVM();
             var sizedItems = _dbContext.SizedItems.Include(si => si.Size).Include(si => si.Item).ThenInclude(i => i.Category);
             summaryVM.User = await _userManager.GetUserAsync(HttpContext.User) as OnlineShop.Models.User;
-            
+            summaryVM.Address = summaryVM.User.Address ?? "";
+
             if (shoppingCartList != null)
             {
                 foreach (var shoppingCartItem in shoppingCartList)
@@ -107,7 +108,7 @@ namespace OnlineShop.Controllers
                         SizedItemId = sizedItem.Id, 
                         OrderedAmount = shoppingCartItem.Amount 
                     });
-                    total = sizedItem.Item.Price * shoppingCartItem.Amount;
+                    total += sizedItem.Item.Price * shoppingCartItem.Amount;
                     count += shoppingCartItem.Amount;
                     itemslist.Append($"<li>{sizedItem.Item.Category.Name.ToUpper()} {sizedItem.Item.Name}: x{shoppingCartItem.Amount}</li>");
                 }
